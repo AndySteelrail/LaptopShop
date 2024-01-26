@@ -1,7 +1,5 @@
-import java.util.Scanner;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Shop {
     public static void main(String[] args) {
@@ -24,4 +22,35 @@ public class Shop {
     public static void filter(Set<Laptop> laptops) {
 
     }
+
+    public static TreeSet<String> getAllNames(Set<Laptop> laptops) {
+        return laptops.stream()
+                .map(Laptop::getName)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public static TreeSet<Integer> getAllRAM(Set<Laptop> laptops) {
+        return laptops.stream()
+                .map(Laptop::getMemRAM)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public static TreeSet<Integer> getAllHDD(Set<Laptop> laptops) {
+        return laptops.stream()
+                .map(Laptop::getMemHDD)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public static TreeSet<String> getAllOS(Set<Laptop> laptops) {
+        return laptops.stream()
+                .map(Laptop::getOS)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public static TreeSet<String> getAllColor(Set<Laptop> laptops) {
+        return laptops.stream()
+                .map(Laptop::getColor)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
 }
