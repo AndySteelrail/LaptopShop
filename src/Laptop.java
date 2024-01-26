@@ -56,13 +56,11 @@ public class Laptop {
 
     @Override
     public String toString() {
-        return "Notebook{" +
-                "Наименование: '" + name + '\'' +
+        return "Наименование: '" + name + '\'' +
                 ", ОЗУ: " + memRAM +
-                ", объём ЖД: " + memHDD +
-                ", операционная система: " + OS +
-                ", цвет: '" + color + '\'' +
-                '}';
+                ", Объём ЖД: " + memHDD +
+                ", Операционная система: " + OS +
+                ", Цвет: '" + color + '\'';
     }
 
     @Override
@@ -83,6 +81,6 @@ public class Laptop {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, memRAM, memHDD, OS,color);
+        return Objects.hash(name, memRAM, memHDD, OS, color);
     }
 }
