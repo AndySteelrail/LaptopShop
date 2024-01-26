@@ -25,56 +25,64 @@ public class Shop {
         Map<String, Object> userParameters = new HashMap<>();
         Scanner sc = new Scanner(System.in);
 
-        System.out.println(
-                "Введите цифру фильтруемого параметра:\n" +
-                "1 - Название ноутбука\n" +
-                "2 - Объем памяти ОЗУ\n" +
-                "3 - Объем памяти ЖД\n" +
-                "4 - Операционная система\n" +
-                "5 - Цвет");
+        boolean endFiltration = false;
+        while(!endFiltration) {
+            System.out.println(
+                    "Введите цифру фильтруемого параметра:\n" +
+                            "1 - Название ноутбука\n" +
+                            "2 - Объем памяти ОЗУ, ГБт\n" +
+                            "3 - Объем памяти ЖД, ГБт\n" +
+                            "4 - Операционная система\n" +
+                            "5 - Цвет\n" +
+                            "0 - Прекратить выбор фильтров");
 
-        int parameter = sc.nextInt();
-        sc.nextLine();
+            int parameter = sc.nextInt();
+            sc.nextLine();
 
-        switch (parameter) {
-            case 1:
-                System.out.println("Введите название ноутбука:");
-                Set<String> uniqNames = getUniqNames(laptops);
-                System.out.println("Варианты:\n" + uniqNames);
-                String name = sc.nextLine();
-                userParameters.put("name", name);
-                break;
-            case 2:
-                System.out.println("Введите памяти ОЗУ:");
-                Set<String> uniqRAM = getUniqNames(laptops);
-                System.out.println("Варианты:\n" + uniqRAM);
-                String memRAM = sc.nextLine();
-                userParameters.put("memRAM", memRAM);
-                break;
-            case 3:
-                System.out.println("Введите памяти ЖД:");
-                Set<String> uniqHDD = getUniqNames(laptops);
-                System.out.println("Варианты:\n" + uniqHDD);
-                String memHDD = sc.nextLine();
-                userParameters.put("memHDD", memHDD);
-                break;
-            case 4:
-                System.out.println("Введите тип операционной системы:");
-                Set<String> uniqOS = getUniqNames(laptops);
-                System.out.println("Варианты:\n" + uniqOS);
-                String OS = sc.nextLine();
-                userParameters.put("OS", OS);
-                break;
-            case 5:
-                System.out.println("Введите цвет:");
-                Set<String> uniqColor = getUniqNames(laptops);
-                System.out.println("Варианты:\n" + uniqColor);
-                String color = sc.nextLine();
-                userParameters.put("Color", color);
-                break;
-            default:
-                System.out.println("Некорректный выбор параметра");
-                return null;
+            switch (parameter) {
+                case 1:
+                    System.out.println("Введите название ноутбука:");
+                    Set<String> uniqNames = getUniqNames(laptops);
+                    System.out.println("Варианты:\n" + uniqNames);
+                    String name = sc.nextLine();
+                    userParameters.put("name", name);
+                    break;
+                case 2:
+                    System.out.println("Введите объём памяти ОЗУ, ГБт:");
+                    Set<Integer> uniqRAM = getUniqRAM(laptops);
+                    System.out.println("Варианты:\n" + uniqRAM);
+                    String memRAM = sc.nextLine();
+                    userParameters.put("memRAM", memRAM);
+                    break;
+                case 3:
+                    System.out.println("Введите объём памяти ЖД, ГБт:");
+                    Set<Integer> uniqHDD = getUniqHDD(laptops);
+                    System.out.println("Варианты:\n" + uniqHDD);
+                    String memHDD = sc.nextLine();
+                    userParameters.put("memHDD", memHDD);
+                    break;
+                case 4:
+                    System.out.println("Введите тип операционной системы:");
+                    Set<String> uniqOS = getUniqOS(laptops);
+                    System.out.println("Варианты:\n" + uniqOS);
+                    String OS = sc.nextLine();
+                    userParameters.put("OS", OS);
+                    break;
+                case 5:
+                    System.out.println("Введите цвет:");
+                    Set<String> uniqColor = getUniqColor(laptops);
+                    System.out.println("Варианты:\n" + uniqColor);
+                    String color = sc.nextLine();
+                    userParameters.put("Color", color);
+                    break;
+                case 0:
+                    endFiltration = true;
+                    break;
+                default:
+                    System.out.println("Некорректный выбор параметра");
+                    return null;
+            }
+            System.out.println(userParameters);
         }
 
         sc.close();
@@ -88,14 +96,39 @@ public class Shop {
         if (laptopFilters == null) {
             return null;
         } else {
-            Set<Laptop> foundLaptops = new HashSet<Laptop>();
+            Set<Laptop> foundLaptops = new HashSet<Laptop>(laptops);
             for (Laptop laptop: laptops) {
                 for (Map.Entry<String, Object> elem : laptopFilters.entrySet()) {
                     String filter = elem.getKey();
                     Object value = elem.getValue();
 
-
-
+                    switch (filter) {
+                        case "name":
+                            if (!laptop.getName().equals(value)) {
+                                foundLaptops.remove(laptop);
+                            }
+                            break;
+                        case "memRAM":
+                            if (laptop.getMemRAM() < (int) value) {
+                                foundLaptops.remove(laptop);
+                            }
+                            break;
+                        case "memHDD":
+                            if (laptop.getMemHDD() < (int) value) {
+                                foundLaptops.remove(laptop);
+                            }
+                            break;
+                        case "OS":
+                            if (!laptop.getOS().equals(value)) {
+                                foundLaptops.remove(laptop);
+                            }
+                            break;
+                        case "Color":
+                            if (!laptop.getColor().equals(value)) {
+                                foundLaptops.remove(laptop);
+                            }
+                            break;
+                    }
                 }
 
             }
