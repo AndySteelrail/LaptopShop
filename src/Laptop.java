@@ -16,7 +16,7 @@ public class Laptop {
         this.memRAM = memRAM;
         this.memHDD = memHDD;
         this.OS = OS;
-        this.color = color;
+        this.color = color; // 3
     }
     public String getName() {
         return name;
