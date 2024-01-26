@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Shop {
     public static void main(String[] args) {
@@ -16,41 +15,45 @@ public class Shop {
         Set<Laptop> laptops = new HashSet<>(Arrays.asList(
                 laptop1, laptop2, laptop3, laptop4, laptop5, laptop6, laptop7, laptop8, laptop9));
 
-        filter(laptops);
+
+//        filter(laptops);
     }
 
-    public static void filter(Set<Laptop> laptops) {
+//    public static void filter(Set<Laptop> laptops) {
+//
+//    }
 
+    public static TreeSet<String> getUniqNames(Set<Laptop> laptops) {
+        TreeSet<String> uniqNames = new TreeSet<String>();
+        for (Laptop laptop: laptops) uniqNames.add(laptop.getName());
+        return uniqNames;
     }
 
-    public static TreeSet<String> getAllNames(Set<Laptop> laptops) {
-        return laptops.stream()
-                .map(Laptop::getName)
-                .collect(Collectors.toCollection(TreeSet::new));
+    public static TreeSet<Integer> getUniqRAM(Set<Laptop> laptops) {
+        TreeSet<Integer> uniqRAM = new TreeSet<Integer>();
+        for (Laptop laptop: laptops) uniqRAM.add(laptop.getMemRAM());
+        return uniqRAM;
     }
 
-    public static TreeSet<Integer> getAllRAM(Set<Laptop> laptops) {
-        return laptops.stream()
-                .map(Laptop::getMemRAM)
-                .collect(Collectors.toCollection(TreeSet::new));
+    public static TreeSet<Integer> getUniqHDD(Set<Laptop> laptops) {
+        TreeSet<Integer> uniqHDD = new TreeSet<Integer>();
+        for (Laptop laptop: laptops) uniqHDD.add(laptop.getMemHDD());
+        return uniqHDD;
     }
 
-    public static TreeSet<Integer> getAllHDD(Set<Laptop> laptops) {
-        return laptops.stream()
-                .map(Laptop::getMemHDD)
-                .collect(Collectors.toCollection(TreeSet::new));
+    public static TreeSet<String> getUniqOS(Set<Laptop> laptops) {
+        TreeSet<String> uniqOS = new TreeSet<String>();
+        for (Laptop laptop: laptops) uniqOS.add(laptop.getOS());
+        return uniqOS;
     }
 
-    public static TreeSet<String> getAllOS(Set<Laptop> laptops) {
-        return laptops.stream()
-                .map(Laptop::getOS)
-                .collect(Collectors.toCollection(TreeSet::new));
+    public static TreeSet<String> getUniqColor(Set<Laptop> laptops) {
+        TreeSet<String> uniqColor = new TreeSet<String>();
+        for (Laptop laptop: laptops) uniqColor.add(laptop.getColor());
+        return uniqColor;
     }
 
-    public static TreeSet<String> getAllColor(Set<Laptop> laptops) {
-        return laptops.stream()
-                .map(Laptop::getColor)
-                .collect(Collectors.toCollection(TreeSet::new));
-    }
+
+
 
 }
