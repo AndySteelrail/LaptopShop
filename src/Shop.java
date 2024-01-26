@@ -15,13 +15,104 @@ public class Shop {
         Set<Laptop> laptops = new HashSet<>(Arrays.asList(
                 laptop1, laptop2, laptop3, laptop4, laptop5, laptop6, laptop7, laptop8, laptop9));
 
-
-//        filter(laptops);
+        Map<String, Object> laptopFilters = getLaptopFilters(laptops);
+        Set<Laptop> filteredLaptops = findFilteredLaptops(laptops, laptopFilters);
+        printFilteredLaptops(filteredLaptops);
     }
 
-//    public static void filter(Set<Laptop> laptops) {
-//
-//    }
+    public static Map<String, Object> getLaptopFilters(Set<Laptop> laptops) {
+
+        Map<String, Object> userParameters = new HashMap<>();
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println(
+                "Введите цифру фильтруемого параметра:\n" +
+                "1 - Название ноутбука\n" +
+                "2 - Объем памяти ОЗУ\n" +
+                "3 - Объем памяти ЖД\n" +
+                "4 - Операционная система\n" +
+                "5 - Цвет");
+
+        int parameter = sc.nextInt();
+        sc.nextLine();
+
+        switch (parameter) {
+            case 1:
+                System.out.println("Введите название ноутбука:");
+                Set<String> uniqNames = getUniqNames(laptops);
+                System.out.println("Варианты:\n" + uniqNames);
+                String name = sc.nextLine();
+                userParameters.put("name", name);
+                break;
+            case 2:
+                System.out.println("Введите памяти ОЗУ:");
+                Set<String> uniqRAM = getUniqNames(laptops);
+                System.out.println("Варианты:\n" + uniqRAM);
+                String memRAM = sc.nextLine();
+                userParameters.put("memRAM", memRAM);
+                break;
+            case 3:
+                System.out.println("Введите памяти ЖД:");
+                Set<String> uniqHDD = getUniqNames(laptops);
+                System.out.println("Варианты:\n" + uniqHDD);
+                String memHDD = sc.nextLine();
+                userParameters.put("memHDD", memHDD);
+                break;
+            case 4:
+                System.out.println("Введите тип операционной системы:");
+                Set<String> uniqOS = getUniqNames(laptops);
+                System.out.println("Варианты:\n" + uniqOS);
+                String OS = sc.nextLine();
+                userParameters.put("OS", OS);
+                break;
+            case 5:
+                System.out.println("Введите цвет:");
+                Set<String> uniqColor = getUniqNames(laptops);
+                System.out.println("Варианты:\n" + uniqColor);
+                String color = sc.nextLine();
+                userParameters.put("Color", color);
+                break;
+            default:
+                System.out.println("Некорректный выбор параметра");
+                return null;
+        }
+
+        sc.close();
+
+        return userParameters;
+    }
+
+    public static Set<Laptop> findFilteredLaptops (Set<Laptop> laptops,
+                                             Map<String, Object> laptopFilters) {
+
+        if (laptopFilters == null) {
+            return null;
+        } else {
+            Set<Laptop> foundLaptops = new HashSet<Laptop>();
+            for (Laptop laptop: laptops) {
+                for (Map.Entry<String, Object> elem : laptopFilters.entrySet()) {
+                    String filter = elem.getKey();
+                    Object value = elem.getValue();
+
+
+
+                }
+
+            }
+
+            return foundLaptops;
+        }
+
+    }
+
+    public static void printFilteredLaptops(Set<Laptop> filteredLaptops) {
+        if (filteredLaptops == null) {
+            System.out.println("Под выбранные параметры не подпадает ни один ноутбук\n");
+        } else {
+            System.out.println("Ноутбуки с выбранными параметрами:");
+            for (Laptop laptop : filteredLaptops) System.out.println(laptop);
+        }
+    }
 
     public static TreeSet<String> getUniqNames(Set<Laptop> laptops) {
         TreeSet<String> uniqNames = new TreeSet<String>();
@@ -52,8 +143,6 @@ public class Shop {
         for (Laptop laptop: laptops) uniqColor.add(laptop.getColor());
         return uniqColor;
     }
-
-
 
 
 }
