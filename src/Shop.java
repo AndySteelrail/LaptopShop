@@ -91,10 +91,10 @@ public class Shop {
     public static Set<Laptop> findFilteredLaptops (Set<Laptop> laptops,
                                              Map<String, Object> laptopFilters) {
 
-        if (laptopFilters == null) {
-            return null;
+        Set<Laptop> foundLaptops = new HashSet<>(laptops);
+        if (laptopFilters.isEmpty()) {
+            return foundLaptops;
         } else {
-            Set<Laptop> foundLaptops = new HashSet<>(laptops);
             for (Laptop laptop: laptops) {
                 for (Map.Entry<String, Object> elem : laptopFilters.entrySet()) {
                     String filter = elem.getKey();
@@ -140,7 +140,6 @@ public class Shop {
         if (filteredLaptops.isEmpty()) {
             System.out.println("Под выбранные параметры не подпадает ни один ноутбук\n");
         } else {
-            System.out.println(filteredLaptops);
             System.out.println("Ноутбуки с выбранными параметрами:");
             for (Laptop laptop : filteredLaptops) System.out.println(laptop);
         }
